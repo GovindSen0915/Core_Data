@@ -16,7 +16,6 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
-//    @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var profileImageView: UIImageView!
     
@@ -48,6 +47,19 @@ extension RegisterViewController {
         guard let password = passwordField.text, !password.isEmpty else {
             openAlert(message: "Please enter your password")
             return
+        }
+        
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        let userEntity = UserEntity(context: context)
+        userEntity.firstName = firstName
+        userEntity.lastName = lastName
+        userEntity.email = email
+        userEntity.password = password
+        
+        do {
+            try context.save()
+        } catch {
+            print("User saving error: ", error)
         }
     }
 }
