@@ -7,16 +7,9 @@
 
 import UIKit
 
-struct userModel {
-    let firstName: String
-    let lastName: String
-    let email: String
-    let password: String
-}
-
 class DatabaseManager{
     
-    func addUser(_ user: userModel) {
+    func addUser(_ user: UserModel) {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let userEntity = UserEntity(context: context)
         userEntity.firstName = user.firstName

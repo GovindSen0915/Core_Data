@@ -51,7 +51,7 @@ extension RegisterViewController {
             return
         }
         
-        let user = userModel(
+        let user = UserModel(
             firstName: firstName,
             lastName: lastName,
             email: email,
