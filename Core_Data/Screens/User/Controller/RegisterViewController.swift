@@ -21,8 +21,11 @@ class RegisterViewController: UIViewController {
     
     private let imageSelectedByUser: Bool = false
     
+    private let manager = DatabaseManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "Add User"
     }
 }
 
@@ -49,18 +52,22 @@ extension RegisterViewController {
             return
         }
         
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        let userEntity = UserEntity(context: context)
-        userEntity.firstName = firstName
-        userEntity.lastName = lastName
-        userEntity.email = email
-        userEntity.password = password
+        let user = UserModel(
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            password: password)
         
-        do {
-            try context.save()
-        } catch {
-            print("User saving error: ", error)
-        }
+        manager.addUser(user)
+        navigationController?.popViewController(animated: true)
+        
+    }
+    
+    func showAlert() {
+        let alertController = UIAlertController(title: nil, message: "User added", preferredStyle: .alert)
+        let okay = UIAlertAction(title: "Okay", style: .default)
+        alertController.addAction(okay)
+        present(alertController, animated: true)
     }
 }
 

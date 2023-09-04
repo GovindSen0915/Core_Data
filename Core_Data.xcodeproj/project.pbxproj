@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E87DD1912AA59B2F00D78D4D /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87DD1902AA59B2F00D78D4D /* UserModel.swift */; };
+		E87DD1932AA59BB300D78D4D /* UserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87DD1922AA59BB300D78D4D /* UserListViewController.swift */; };
 		E8CC9DBC2AA493B000A7C65C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8CC9DBB2AA493B000A7C65C /* AppDelegate.swift */; };
 		E8CC9DBE2AA493B000A7C65C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8CC9DBD2AA493B000A7C65C /* SceneDelegate.swift */; };
 		E8CC9DC02AA493B000A7C65C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8CC9DBF2AA493B000A7C65C /* ViewController.swift */; };
@@ -19,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E87DD1902AA59B2F00D78D4D /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		E87DD1922AA59BB300D78D4D /* UserListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewController.swift; sourceTree = "<group>"; };
 		E8CC9DB82AA493B000A7C65C /* Core_Data.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Core_Data.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8CC9DBB2AA493B000A7C65C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E8CC9DBD2AA493B000A7C65C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -129,6 +133,7 @@
 		E8CC9DDA2AA4948200A7C65C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E87DD1902AA59B2F00D78D4D /* UserModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -144,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				E8CC9DDD2AA497B600A7C65C /* RegisterViewController.swift */,
+				E87DD1922AA59BB300D78D4D /* UserListViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -220,6 +226,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E8CC9DC62AA493B000A7C65C /* Core_Data.xcdatamodeld in Sources */,
+				E87DD1932AA59BB300D78D4D /* UserListViewController.swift in Sources */,
+				E87DD1912AA59B2F00D78D4D /* UserModel.swift in Sources */,
 				E8CC9DC02AA493B000A7C65C /* ViewController.swift in Sources */,
 				E8CC9DD82AA4947300A7C65C /* DatabaseManager.swift in Sources */,
 				E8CC9DDE2AA497B600A7C65C /* RegisterViewController.swift in Sources */,
