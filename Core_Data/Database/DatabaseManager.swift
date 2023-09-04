@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DatabaseManager{
+class DatabaseManager {
     
     func addUser(_ user: UserModel) {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
