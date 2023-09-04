@@ -25,11 +25,21 @@ class RegisterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Add User"
+        configuration()
     }
 }
 
 extension RegisterViewController {
+    
+    func configuration() {
+        navigationItem.title = "Add User"
+        addGesture()
+    }
+    
+    func addGesture() {
+        let imageTap = UITapGestureRecognizer(target: self, action: #selector(RegisterViewController.openGallery))
+        profileImageView.addGestureRecognizer(imageTap)
+    }
     
     @IBAction func resgisterButtonTapped(_ sender: UIButton) {
         guard let firstName = firstNameField.text, !firstName.isEmpty else {
@@ -52,11 +62,14 @@ extension RegisterViewController {
             return
         }
         
+        let imageName = UUID().uuidString
         let user = UserModel(
             firstName: firstName,
             lastName: lastName,
             email: email,
-            password: password)
+            password: password,
+            imageName: imageName
+        )
         
         manager.addUser(user)
         navigationController?.popViewController(animated: true)
@@ -68,6 +81,16 @@ extension RegisterViewController {
         let okay = UIAlertAction(title: "Okay", style: .default)
         alertController.addAction(okay)
         present(alertController, animated: true)
+    }
+    
+    @objc func openGallery() {
+        var config = PHPickerConfiguration()
+        config.selectionLimit = 1
+        
+        let pickerVC = PHPickerViewController(configuration: config)
+//        pickerVC.delegate = self
+        present(pickerVC, animated: true)
+        
     }
 }
 
