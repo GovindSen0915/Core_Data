@@ -19,7 +19,7 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var profileImageView: UIImageView!
     
-    private let imageSelectedByUser: Bool = false
+    private var imageSelectedByUser: Bool = false
     
     private let manager = DatabaseManager()
     
@@ -67,6 +67,12 @@ extension RegisterViewController {
             return
         }
         
+        if !imageSelectedByUser {
+            openAlert(message: "Please choose your profile image.")
+        }
+        
+//        print("All validations are done, good to go...")
+        
         let imageName = UUID().uuidString
         let user = UserModel(
             firstName: firstName,
@@ -76,9 +82,21 @@ extension RegisterViewController {
             imageName: imageName
         )
         
+        saveImageToDocumentDirectory(imageName: imageName)
         manager.addUser(user)
         navigationController?.popViewController(animated: true)
         
+    }
+    
+    func saveImageToDocumentDirectory(imageName: String) {
+        let fileURL = URL.documentsDirectory.appending(path: imageName).appendingPathExtension("png")
+        if let data = profileImageView.image?.pngData() {
+            do {
+                try data.write(to: fileURL)
+            } catch {
+                print("Saving image to document directory error: ", error)
+            }
+        }
     }
     
     func showAlert() {
@@ -117,6 +135,7 @@ extension RegisterViewController: PHPickerViewControllerDelegate {
                 guard let image = image as? UIImage else { return }
                 DispatchQueue.main.async {
                     self.profileImageView.image = image
+                    self.imageSelectedByUser = true
                 }
             }
         }
