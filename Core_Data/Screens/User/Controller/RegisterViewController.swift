@@ -19,17 +19,32 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var profileImageView: UIImageView!
     
-    private let imageSelectedByUser: Bool = false
+    private var imageSelectedByUser: Bool = false
     
     private let manager = DatabaseManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Add User"
+        configuration()
     }
 }
 
 extension RegisterViewController {
+    
+    func configuration() {
+        uiConfiguration()
+        addGesture()
+    }
+    
+    func uiConfiguration() {
+        navigationItem.title = "Add User"
+        profileImageView.layer.cornerRadius = profileImageView.frame.size.height / 2
+    }
+    
+    func addGesture() {
+        let imageTap = UITapGestureRecognizer(target: self, action: #selector(RegisterViewController.openGallery))
+        profileImageView.addGestureRecognizer(imageTap)
+    }
     
     @IBAction func resgisterButtonTapped(_ sender: UIButton) {
         guard let firstName = firstNameField.text, !firstName.isEmpty else {
@@ -52,15 +67,36 @@ extension RegisterViewController {
             return
         }
         
+        if !imageSelectedByUser {
+            openAlert(message: "Please choose your profile image.")
+        }
+        
+//        print("All validations are done, good to go...")
+        
+        let imageName = UUID().uuidString
         let user = UserModel(
             firstName: firstName,
             lastName: lastName,
             email: email,
-            password: password)
+            password: password,
+            imageName: imageName
+        )
         
+        saveImageToDocumentDirectory(imageName: imageName)
         manager.addUser(user)
         navigationController?.popViewController(animated: true)
         
+    }
+    
+    func saveImageToDocumentDirectory(imageName: String) {
+        let fileURL = URL.documentsDirectory.appending(path: imageName).appendingPathExtension("png")
+        if let data = profileImageView.image?.pngData() {
+            do {
+                try data.write(to: fileURL)
+            } catch {
+                print("Saving image to document directory error: ", error)
+            }
+        }
     }
     
     func showAlert() {
@@ -68,6 +104,16 @@ extension RegisterViewController {
         let okay = UIAlertAction(title: "Okay", style: .default)
         alertController.addAction(okay)
         present(alertController, animated: true)
+    }
+    
+    @objc func openGallery() {
+        var config = PHPickerConfiguration()
+        config.selectionLimit = 1
+        
+        let pickerVC = PHPickerViewController(configuration: config)
+        pickerVC.delegate = self
+        present(pickerVC, animated: true)
+        
     }
 }
 
@@ -77,5 +123,21 @@ extension RegisterViewController {
         let okay = UIAlertAction(title: "Okay", style: .default)
         alertController.addAction(okay)
         present(alertController, animated: true)
+    }
+}
+
+extension RegisterViewController: PHPickerViewControllerDelegate {
+    
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        dismiss(animated: true)
+        for result in results {
+            result.itemProvider.loadObject(ofClass: UIImage.self) { image, error in
+                guard let image = image as? UIImage else { return }
+                DispatchQueue.main.async {
+                    self.profileImageView.image = image
+                    self.imageSelectedByUser = true
+                }
+            }
+        }
     }
 }

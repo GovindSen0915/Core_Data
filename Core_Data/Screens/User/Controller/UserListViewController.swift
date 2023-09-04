@@ -47,6 +47,13 @@ extension UserListViewController: UITableViewDataSource {
         var content = cell.defaultContentConfiguration()
         content.text = (user.firstName ?? "") + " " + (user.lastName ?? "") // title
         content.secondaryText = "Email: \(user.email ?? "")" // subTitle
+        
+        let imageURL = URL.documentsDirectory.appending(components: user.imageName ?? "").appendingPathExtension("png")
+        content.image = UIImage(contentsOfFile: imageURL.path)
+        
+        var imagePro = content.imageProperties
+        imagePro.maximumSize = CGSize(width: 80, height: 80)
+        content.imageProperties = imagePro
         cell.contentConfiguration = content
         
         return cell
