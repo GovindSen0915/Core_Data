@@ -25,6 +25,7 @@ class RegisterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "Add User"
     }
 }
 
@@ -58,8 +59,15 @@ extension RegisterViewController {
             password: password)
         
         manager.addUser(user)
+        navigationController?.popViewController(animated: true)
         
-        
+    }
+    
+    func showAlert() {
+        let alertController = UIAlertController(title: nil, message: "User added", preferredStyle: .alert)
+        let okay = UIAlertAction(title: "Okay", style: .default)
+        alertController.addAction(okay)
+        present(alertController, animated: true)
     }
 }
 

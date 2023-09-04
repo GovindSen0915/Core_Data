@@ -12,13 +12,23 @@ class UserListViewController: UIViewController {
     @IBOutlet weak var userTableView: UITableView!
     
     private var users: [UserEntity] = []
+    private let manager = DatabaseManager()
     override func viewDidLoad() {
         super.viewDidLoad()
 
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        users = manager.fetchUsers()
+        userTableView.reloadData()
+        
+    }
+    
 
     @IBAction func addUserButtonTapped(_ sender: UIBarButtonItem) {
+        guard let registervC = self.storyboard?.instantiateViewController(identifier: "RegisterViewController") as? RegisterViewController else { return }
+        navigationController?.pushViewController(registervC, animated: true)
     }
 
 }
