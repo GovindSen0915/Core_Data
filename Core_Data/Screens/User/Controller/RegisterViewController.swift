@@ -21,6 +21,8 @@ class RegisterViewController: UIViewController {
     
     private let imageSelectedByUser: Bool = false
     
+    private let manager = DatabaseManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -49,18 +51,15 @@ extension RegisterViewController {
             return
         }
         
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        let userEntity = UserEntity(context: context)
-        userEntity.firstName = firstName
-        userEntity.lastName = lastName
-        userEntity.email = email
-        userEntity.password = password
+        let user = userModel(
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            password: password)
         
-        do {
-            try context.save()
-        } catch {
-            print("User saving error: ", error)
-        }
+        manager.addUser(user)
+        
+        
     }
 }
 
