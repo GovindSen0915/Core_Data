@@ -32,8 +32,13 @@ class RegisterViewController: UIViewController {
 extension RegisterViewController {
     
     func configuration() {
-        navigationItem.title = "Add User"
+        uiConfiguration()
         addGesture()
+    }
+    
+    func uiConfiguration() {
+        navigationItem.title = "Add User"
+        profileImageView.layer.cornerRadius = profileImageView.frame.size.height / 2
     }
     
     func addGesture() {
@@ -88,7 +93,7 @@ extension RegisterViewController {
         config.selectionLimit = 1
         
         let pickerVC = PHPickerViewController(configuration: config)
-//        pickerVC.delegate = self
+        pickerVC.delegate = self
         present(pickerVC, animated: true)
         
     }
@@ -100,5 +105,20 @@ extension RegisterViewController {
         let okay = UIAlertAction(title: "Okay", style: .default)
         alertController.addAction(okay)
         present(alertController, animated: true)
+    }
+}
+
+extension RegisterViewController: PHPickerViewControllerDelegate {
+    
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        dismiss(animated: true)
+        for result in results {
+            result.itemProvider.loadObject(ofClass: UIImage.self) { image, error in
+                guard let image = image as? UIImage else { return }
+                DispatchQueue.main.async {
+                    self.profileImageView.image = image
+                }
+            }
+        }
     }
 }
