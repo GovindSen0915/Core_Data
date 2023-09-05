@@ -48,3 +48,13 @@ extension UserListViewController: UITableViewDataSource {
         return cell
     }
 }
+
+extension UserListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let update = UIContextualAction(style: .normal, title: "Update") { _, _, _ in
+            
+        }
+        update.backgroundColor = .systemIndigo
+        return UISwipeActionsConfiguration(actions: [update])
+    }
+}
