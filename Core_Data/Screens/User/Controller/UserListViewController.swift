@@ -15,6 +15,7 @@ class UserListViewController: UIViewController {
     private let manager = DatabaseManager()
     override func viewDidLoad() {
         super.viewDidLoad()
+        userTableView.register(UINib(nibName: "UserCell", bundle: nil), forCellReuseIdentifier: "UserCell")
         
     }
     
@@ -39,23 +40,11 @@ extension UserListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "UserCell") as? UserCell else {
             return UITableViewCell()
         }
-        
         let user = users[indexPath.row]
-        var content = cell.defaultContentConfiguration()
-        content.text = (user.firstName ?? "") + " " + (user.lastName ?? "") // title
-        content.secondaryText = "Email: \(user.email ?? "")" // subTitle
-        
-        let imageURL = URL.documentsDirectory.appending(components: user.imageName ?? "").appendingPathExtension("png")
-        content.image = UIImage(contentsOfFile: imageURL.path)
-        
-        var imagePro = content.imageProperties
-        imagePro.maximumSize = CGSize(width: 80, height: 80)
-        content.imageProperties = imagePro
-        cell.contentConfiguration = content
-        
+        cell.user = user
         return cell
     }
 }
