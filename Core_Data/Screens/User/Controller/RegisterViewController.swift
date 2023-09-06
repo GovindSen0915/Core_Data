@@ -94,24 +94,33 @@ extension RegisterViewController {
         
         let imageName = UUID().uuidString
         
-        var newUser = UserModel(
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            password: password,
-            imageName: imageName
-        )
-        
         if let user {
             // update
-            newUser.imageName = user.imageName ?? ""
+            
+            var newUser = UserModel(
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                password: password,
+                imageName: user.imageName  ?? ""
+            )
+            
             manager.updateUser(user: newUser, userEntity: user)
-            saveImageToDocumentDirectory(imageName: user.imageName ?? "")
+            saveImageToDocumentDirectory(imageName: newUser.imageName)
+//            manager.addUser(newUser)
             
             
         } else {
             // add
-            saveImageToDocumentDirectory(imageName: imageName)
+            
+            let newUser = UserModel(
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                password: password,
+                imageName: imageName
+            )
+            saveImageToDocumentDirectory(imageName: newUser.imageName)
             manager.addUser(newUser)
         }
         

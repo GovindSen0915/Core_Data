@@ -59,6 +59,12 @@ extension UserListViewController: UITableViewDelegate {
             self.addUpdateUserNavigation(user: self.users[indexPath.row])
         }
         update.backgroundColor = .systemIndigo
-        return UISwipeActionsConfiguration(actions: [update])
+        
+        let delete = UIContextualAction(style: .destructive, title: "Delete") { _, _, _ in
+            self.manager.deleteUser(userEntity: self.users[indexPath.row]) // core data
+            self.users.remove(at: indexPath.row) // Array
+            self.userTableView.reloadData()
+        }
+        return UISwipeActionsConfiguration(actions: [update, delete])
     }
 }
