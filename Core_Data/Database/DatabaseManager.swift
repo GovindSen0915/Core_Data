@@ -29,6 +29,20 @@ class DatabaseManager {
         }
     }
     
+    func updateUser(user: UserModel, userEntity:UserEntity) {
+        userEntity.firstName = user.firstName
+        userEntity.lastName = user.lastName
+        userEntity.email = user.email
+        userEntity.password = user.password
+        userEntity.imageName = user.imageName
+        
+        do {
+            try context.save()
+        } catch {
+            print("User saving error: ", error)
+        }
+    }
+    
     func fetchUsers() -> [UserEntity] {
         var users: [UserEntity] = []
         

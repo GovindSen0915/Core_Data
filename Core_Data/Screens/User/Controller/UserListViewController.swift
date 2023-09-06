@@ -26,9 +26,13 @@ class UserListViewController: UIViewController {
         
     }
     
-    
     @IBAction func addUserButtonTapped(_ sender: UIBarButtonItem) {
+        addUpdateUserNavigation()
+    }
+    
+    func addUpdateUserNavigation(user: UserEntity? = nil) {
         guard let registervC = self.storyboard?.instantiateViewController(identifier: "RegisterViewController") as? RegisterViewController else { return }
+        registervC.user = user
         navigationController?.pushViewController(registervC, animated: true)
     }
     
@@ -52,7 +56,7 @@ extension UserListViewController: UITableViewDataSource {
 extension UserListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let update = UIContextualAction(style: .normal, title: "Update") { _, _, _ in
-            
+            self.addUpdateUserNavigation(user: self.users[indexPath.row])
         }
         update.backgroundColor = .systemIndigo
         return UISwipeActionsConfiguration(actions: [update])
