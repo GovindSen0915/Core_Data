@@ -54,6 +54,12 @@ class DatabaseManager {
     }
     
     func deleteUser(userEntity: UserEntity) {
+        let imageURL = URL.documentsDirectory.appending(components: userEntity.imageName ?? "").appendingPathExtension("png")
+        do {
+            try FileManager.default.removeItem(at: imageURL)
+        } catch {
+            print("Remove error form Document directory", error)
+        }
         context.delete(userEntity)
         saveContext()
     }

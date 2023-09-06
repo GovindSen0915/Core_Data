@@ -65,6 +65,6 @@ extension UserListViewController: UITableViewDelegate {
             self.users.remove(at: indexPath.row) // Array
             self.userTableView.reloadData()
         }
-        return UISwipeActionsConfiguration(actions: [update, delete])
+        return UISwipeActionsConfiguration(actions: [delete, update])
     }
 }

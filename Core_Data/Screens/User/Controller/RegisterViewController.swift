@@ -97,7 +97,7 @@ extension RegisterViewController {
         if let user {
             // update
             
-            var newUser = UserModel(
+            let newUser = UserModel(
                 firstName: firstName,
                 lastName: lastName,
                 email: email,
@@ -107,12 +107,10 @@ extension RegisterViewController {
             
             manager.updateUser(user: newUser, userEntity: user)
             saveImageToDocumentDirectory(imageName: newUser.imageName)
-//            manager.addUser(newUser)
             
             
         } else {
             // add
-            
             let newUser = UserModel(
                 firstName: firstName,
                 lastName: lastName,

@@ -11,7 +11,6 @@ class UserCell: UITableViewCell {
     
     @IBOutlet weak var fullNameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
-    
     @IBOutlet weak var profileImageView: UIImageView!
     
     var user: UserEntity? {
@@ -19,18 +18,10 @@ class UserCell: UITableViewCell {
             userConfiguration()
         }
     }
-    
-    
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         profileImageView.layer.cornerRadius = profileImageView.frame.size.height / 2
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     func userConfiguration() {
