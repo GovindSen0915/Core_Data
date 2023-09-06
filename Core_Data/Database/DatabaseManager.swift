@@ -16,17 +16,21 @@ class DatabaseManager {
     
     func addUser(_ user: UserModel) {
         let userEntity = UserEntity(context: context)
+        addUpdateUser(user: user, userEntity: userEntity)
+    }
+    
+    func updateUser(user: UserModel, userEntity:UserEntity) {
+        addUpdateUser(user: user, userEntity: userEntity)
+        
+    }
+    
+    private func addUpdateUser(user: UserModel, userEntity: UserEntity) {
         userEntity.firstName = user.firstName
         userEntity.lastName = user.lastName
         userEntity.email = user.email
         userEntity.password = user.password
         userEntity.imageName = user.imageName
-        
-        do {
-            try context.save()
-        } catch {
-            print("User saving error: ", error)
-        }
+        saveContext()
     }
     
     func fetchUsers() -> [UserEntity] {
@@ -39,6 +43,25 @@ class DatabaseManager {
             print("Fetch user error", error)
         }
         return users
+    }
+    
+    func saveContext() {
+        do {
+            try context.save()
+        } catch {
+            print("User saving error:", error)
+        }
+    }
+    
+    func deleteUser(userEntity: UserEntity) {
+        let imageURL = URL.documentsDirectory.appending(components: userEntity.imageName ?? "").appendingPathExtension("png")
+        do {
+            try FileManager.default.removeItem(at: imageURL)
+        } catch {
+            print("Remove error form Document directory", error)
+        }
+        context.delete(userEntity)
+        saveContext()
     }
     
 }
