@@ -4,6 +4,14 @@ Simulator Demo
 :-------------------------:
 https://github.com/GovindSen0915/Core_Data/assets/85836893/421e16fd-bffb-4556-8d35-ea8638560a9d
 
+Intro | Create | Read 
+:-------------------------:|:-------------------------:|:-------------------------:
+<img alt="Products list" src="Screenshots/Step_1.png">|<img alt="Products list" src="Screenshots/Step_2.png">|<img alt="Products list" src="Screenshots/Step_3.png">
+
+Update | Delete | Result
+:-------------------------:|:-------------------------:|:-------------------------:
+<img alt="Products list" src="Screenshots/Step_4.png">|<img alt="Products list" src="Screenshots/Step_5.png">|<img alt="Products list" src="Screenshots/Step_6.png">
+
 - **UserListViewController:**
   - Manages a list of users displayed in a table view.
   - Fetches user data from a database using the `DatabaseManager`.
