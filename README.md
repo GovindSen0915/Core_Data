@@ -1,5 +1,9 @@
 # Core_Data
 
+Simulator Demo
+:-------------------------:
+https://github.com/GovindSen0915/Core_Data/assets/85836893/421e16fd-bffb-4556-8d35-ea8638560a9d
+
 - **UserListViewController:**
   - Manages a list of users displayed in a table view.
   - Fetches user data from a database using the `DatabaseManager`.
