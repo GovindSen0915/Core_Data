@@ -90,6 +90,7 @@ extension RegisterViewController {
         
         if !imageSelectedByUser {
             openAlert(message: "Please choose your profile image.")
+            return
         }
         
         let imageName = UUID().uuidString
